@@ -1,0 +1,114 @@
+@import './variables.scss';
+
+@mixin mediaRetina {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+@mixin mediaLandscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin mediaPortrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin mediaXl {
+  @media (min-width: 1300px) {
+    @content;
+  }
+}
+
+@mixin mediaLg {
+  @media (min-width: 1000px) and (max-width: 1299px) {
+    @content;
+  }
+}
+
+@mixin mediaLgMin {
+  @media (min-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin mediaLgMax {
+  @media (max-width: 1299px) {
+    @content;
+  }
+}
+
+@mixin mediaMd {
+  @media (min-width: 768px) and (max-width: 999px) {
+    @content;
+  }
+}
+
+@mixin mediaMdMin {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mediaMdMax {
+  @media (max-width: 999px) {
+    @content;
+  }
+}
+
+@mixin mediaSm {
+  @media (min-width: 576px) and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin mediaSmMin {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin mediaSmMax {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin mediaXs {
+  @media (max-width: 575px) {
+    @content;
+  }
+}
+
+@mixin mediaXss {
+  @media (max-width: 359px) {
+    @content;
+  }
+}
+
+@mixin resetButtonStyle {
+  margin: 0;
+  display: inline-block;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  font: inherit;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+  webkit-touch-callout: pan-y;
+  webkit-tap-highlight-color: rgba($black, 0);
+  -webkit-tap-highlight-color: rgba($black, 0);
+}

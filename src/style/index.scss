@@ -1,0 +1,31 @@
+@import './reset.scss';
+@import './variables.scss';
+
+@-ms-viewport {
+  width: device-width;
+}
+
+html {
+  -ms-overflow-style: scrollbar;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: $bodyFont;
+  font-size: 16px;
+  line-height: 1.375;
+  word-wrap: break-word;
+  color: $black;
+  background-color: $white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+b {
+  font-weight: 800;
+}
