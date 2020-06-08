@@ -1,7 +1,8 @@
 import { connect } from '@giantmachines/redux-websocket/dist';
 
 import {
-  APPLY_PENDING_POSTS
+  APPLY_PENDING_POSTS,
+  SELECT_POST
 } from './constants';
 import config from '../../config';
 
@@ -20,3 +21,8 @@ export const applyPendingPosts = () => ({
 });
 
 export const subscribeHashtag = (hashtag) => connect(buildWsUrl(`${hashtag}/`));
+
+export const selectPost = (id) => ({
+  type: SELECT_POST,
+  id
+});

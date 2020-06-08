@@ -2,36 +2,62 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import { noop } from '../../utils';
+import IconStar from '../../icons/IconStar';
+
 import style from './Post.scss';
 
 const Post = ({
+  id,
   className,
   caption,
-  thumbnail
+  thumbnail,
+  selected,
+  onClick
 }) => (
-  <div className={cn(style.component, className)}>
+  <button
+    className={cn(style.component, className)}
+    type="button"
+    onClick={() => onClick(id)}
+  >
     <figure>
       <div className={style.thumbnail}>
         <img src={thumbnail} alt={caption} />
       </div>
 
+      {selected && (
+        <div className={style.icon}>
+          <IconStar
+            color="#1976D2"
+            height={32}
+            width={32}
+          />
+        </div>
+      )}
+
       <figcaption className={style.caption}>
         <p>{caption.slice(0, 100)}</p>
       </figcaption>
     </figure>
-  </div>
+  </button>
 );
 
 Post.propTypes = {
+  id: PropTypes.string,
   className: PropTypes.string,
   caption: PropTypes.string,
-  thumbnail: PropTypes.string
+  thumbnail: PropTypes.string,
+  selected: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 Post.defaultProps = {
+  id: null,
   className: null,
   caption: null,
-  thumbnail: null
+  thumbnail: null,
+  selected: false,
+  onClick: noop
 };
 
 export default memo(Post);

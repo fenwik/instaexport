@@ -6,7 +6,10 @@ import {
   WEBSOCKET_OPEN
 } from '@giantmachines/redux-websocket';
 
-import { APPLY_PENDING_POSTS } from './constants';
+import {
+  APPLY_PENDING_POSTS,
+  SELECT_POST
+} from './constants';
 
 import { createReducer } from '../utils';
 
@@ -27,6 +30,28 @@ const posts = createReducer(defaultState, {
     ],
     pending: state.pending.slice(12)
   }),
+
+  [SELECT_POST]: (state, { id }) => {
+    console.log(id);
+
+    const selected = [...state.selected];
+    const index = selected.findIndex(({ shortcode }) => shortcode === id);
+
+    if (index !== -1) {
+      selected.splice(index, 1);
+    } else {
+      const item = state.data.find(({ shortcode }) => shortcode === id);
+
+      if (item) {
+        selected.push(item);
+      }
+    }
+
+    return {
+      ...state,
+      selected
+    };
+  },
 
   [`${DEFAULT_PREFIX}::${WEBSOCKET_CONNECT}`]: (state) => ({
     ...state,

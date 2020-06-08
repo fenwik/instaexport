@@ -1,9 +1,15 @@
 @import '../../style/variables';
+@import '../../style/mixins';
 
 .component {
+  @include resetButtonStyle;
+
+  position: relative;
+  width: 100%;
   background-color: $layoutColor;
   border-radius: 4px;
   box-shadow: 0 2px 1px -1px rgba($black,0.2), 0 1px 1px 0 rgba($black,0.14), 0 1px 3px 0 rgba($black,0.12);
+  text-align: left;
   overflow: hidden;
   transition: background-color 0.2s;
 }
@@ -40,4 +46,10 @@
     font-size: 12px;
     text-overflow: ellipsis;
   }
+}
+
+.icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }

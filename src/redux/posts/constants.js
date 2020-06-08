@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
-export const APPLY_PENDING_POSTS = 'APPLY_PENDING_POSTS';
+export const APPLY_PENDING_POSTS = 'posts/APPLY_PENDING_POSTS';
+export const SELECT_POST = 'posts/SELECT_POST';

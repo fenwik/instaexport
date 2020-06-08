@@ -4,7 +4,11 @@ import React, {
   useState
 } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Row, Col } from 'react-grid-system';
+import {
+  Container,
+  Row,
+  Col
+} from 'react-grid-system';
 
 import { noop } from '../../utils';
 import Post from '../../components/Post';
@@ -26,8 +30,10 @@ const Home = ({
   fetching,
   pendingCount,
   posts,
+  selected,
   onApply,
-  onMount
+  onMount,
+  onSelect
 }) => {
   const [active, setActive] = useState(hashtags[0]);
 
@@ -76,8 +82,11 @@ const Home = ({
                 className={style.col}
               >
                 <Post
+                  id={post.shortcode}
                   caption={post.caption}
                   thumbnail={post.thumbnail}
+                  selected={selected.includes(post.shortcode)}
+                  onClick={onSelect}
                 />
               </Col>
             ))}
@@ -95,17 +104,25 @@ const Home = ({
 Home.propTypes = {
   fetching: PropTypes.bool,
   pendingCount: PropTypes.number,
-  posts: PropTypes.array,
+  posts: PropTypes.arrayOf(PropTypes.shape({
+    shortcode: PropTypes.string,
+    caption: PropTypes.string,
+    thumbnail: PropTypes.string
+  })),
+  selected: PropTypes.arrayOf(PropTypes.string),
   onApply: PropTypes.func,
-  onMount: PropTypes.func
+  onMount: PropTypes.func,
+  onSelect: PropTypes.func
 };
 
 Home.defaultProps = {
   fetching: false,
   pendingCount: 0,
   posts: [],
+  selected: [],
   onApply: noop,
-  onMount: noop
+  onMount: noop,
+  onSelect: noop
 };
 
 export default memo(Home);
