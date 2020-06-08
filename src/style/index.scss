@@ -1,6 +1,22 @@
 @import './reset.scss';
 @import './variables.scss';
 
+:root {
+  --primary-color: #{$blue};
+  --secondary-color: #{lighten($blue, 10)};
+  --font-color: #{$grayD};
+  --bg-color: #{$grayXXL};
+  --layout-color: #{$white};
+}
+
+[data-theme="dark"] {
+  --primary-color: #{$blue};
+  --secondary-color: #{lighten($blue, 10)};
+  --font-color: #{$grayXL};
+  --bg-color: #{$grayXD};
+  --layout-color: #{$grayD};
+}
+
 @-ms-viewport {
   width: device-width;
 }
@@ -15,10 +31,12 @@ body {
   font-size: 16px;
   line-height: 1.375;
   word-wrap: break-word;
-  color: $black;
-  background-color: $white;
+  color: $fontColor;
+  background-color: $bgColor;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s;
+  transition-timing-function: ease;
 }
 
 a {

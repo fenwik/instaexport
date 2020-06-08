@@ -4,19 +4,27 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import createWsMiddleware from '@giantmachines/redux-websocket';
 
 import config from '../config';
+import app from './app/reducer';
+import posts from './posts/reducer';
 
 import createApiMiddleware from './middlewares/createApiMiddleware';
 
 const createRootReducer = (history) => combineReducers({
+  app,
+  posts,
+
   router: connectRouter(history)
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: []
+  whitelist: [
+    'app'
+  ]
 };
 
 function configureStore(history, initialState) {
@@ -27,6 +35,7 @@ function configureStore(history, initialState) {
       host: config.API_HOST,
       apiPath: config.API_PATH
     }),
+    createWsMiddleware(),
     routerMiddleware(history)
   ];
 

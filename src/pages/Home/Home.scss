@@ -1,0 +1,36 @@
+@import '../../style/mixins';
+@import '../../style/variables';
+
+.component {
+  padding: 20px 0;
+}
+
+.toolbar {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pending {
+  @include resetButtonStyle;
+
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 1;
+  padding: 10px 20px;
+  border-radius: 40px;
+  background-color: $primaryColor;
+  color: $white;
+  box-shadow: 0 3px 5px -1px rgba($black,0.2), 0 6px 10px 0 rgba($black,0.14), 0 1px 18px 0 rgba($black,0.12);
+}
+
+.col {
+  margin-bottom: 20px;
+}
+
+.spinner {
+  text-align: center;
+}

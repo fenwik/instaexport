@@ -7,6 +7,7 @@ const defaultConfig = {
   API_PROTOCOL: '',
   API_HOST: '',
   API_PATH: '/api/',
+  API_WS_PROTOCOL: '',
 
   SENTRY_DSN: ''
 };

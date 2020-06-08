@@ -1,12 +1,27 @@
-import React, { memo } from 'react';
-import { Container } from 'react-grid-system';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-const Home = () => (
-  <div>
-    <Container>
-      Home page
-    </Container>
-  </div>
-);
+import {
+  pendingPostsCountSelector,
+  postsFetchingSelector,
+  postsSelector
+} from '../../redux/posts/selectors';
+import {
+  applyPendingPosts,
+  subscribeHashtag
+} from '../../redux/posts/actions';
 
-export default memo(Home);
+import Home from './Home';
+
+const mapStateToProps = createStructuredSelector({
+  fetching: postsFetchingSelector,
+  pendingCount: pendingPostsCountSelector,
+  posts: postsSelector
+});
+
+const mapDispatchToProps = {
+  onMount: subscribeHashtag,
+  onApply: applyPendingPosts
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
