@@ -1,7 +1,13 @@
-import { TOGGLE_THEME } from './constants';
+import {
+  TOGGLE_THEME,
+  SET_THEME
+} from './constants';
 
-// eslint-disable-next-line import/prefer-default-export
-export const toggleTheme = (device) => ({
-  type: TOGGLE_THEME,
-  device
+export const toggleTheme = () => ({
+  type: TOGGLE_THEME
+});
+
+export const setTheme = (theme) => ({
+  type: SET_THEME,
+  theme
 });

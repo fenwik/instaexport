@@ -35,7 +35,10 @@ function configureStore(history, initialState) {
       host: config.API_HOST,
       apiPath: config.API_PATH
     }),
-    createWsMiddleware(),
+    createWsMiddleware({
+      reconnectInterval: 5000,
+      reconnectOnClose: true
+    }),
     routerMiddleware(history)
   ];
 

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { toggleTheme } from '../../redux/app/actions';
+import { setTheme, toggleTheme } from '../../redux/app/actions';
 import { themeSelector } from '../../redux/app/selectors';
 
 import ThemeSwitcher from './ThemeSwitcher';
@@ -11,7 +11,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  onToggle: toggleTheme
+  setTheme,
+  toggleTheme
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThemeSwitcher);

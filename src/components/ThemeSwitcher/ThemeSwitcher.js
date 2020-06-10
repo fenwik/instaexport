@@ -2,29 +2,35 @@ import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { noop } from '../../utils';
+import { noop, detectColorScheme } from '../../utils';
 
 import style from './ThemeSwitcher.scss';
 
 const ThemeSwitcher = ({
   className,
   theme,
-  onToggle
+  setTheme,
+  toggleTheme
 }) => {
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const isOn = theme === 'dark';
+    if (!theme) {
+      setTheme(detectColorScheme());
+    } else {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  }, [
+    theme,
+    setTheme
+  ]);
 
   return (
     <div className={cn(style.component, className)}>
       <input
-        checked={isOn}
+        checked={theme === 'dark'}
         className={style.checkbox}
         id="react-switch-new"
         type="checkbox"
-        onChange={onToggle}
+        onChange={toggleTheme}
       />
 
       <label
@@ -40,13 +46,15 @@ const ThemeSwitcher = ({
 ThemeSwitcher.propTypes = {
   className: PropTypes.string,
   theme: PropTypes.string,
-  onToggle: PropTypes.func
+  setTheme: PropTypes.func,
+  toggleTheme: PropTypes.func
 };
 
 ThemeSwitcher.defaultProps = {
   className: '',
   theme: '',
-  onToggle: noop
+  setTheme: noop,
+  toggleTheme: noop
 };
 
 export default memo(ThemeSwitcher);

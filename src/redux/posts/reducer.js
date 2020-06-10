@@ -32,8 +32,6 @@ const posts = createReducer(defaultState, {
   }),
 
   [SELECT_POST]: (state, { id }) => {
-    console.log(id);
-
     const selected = [...state.selected];
     const index = selected.findIndex(({ shortcode }) => shortcode === id);
 
@@ -64,8 +62,9 @@ const posts = createReducer(defaultState, {
     connected: true
   }),
 
-  [`${DEFAULT_PREFIX}::${WEBSOCKET_CLOSED}`]: () => ({
-    ...defaultState
+  [`${DEFAULT_PREFIX}::${WEBSOCKET_CLOSED}`]: (state) => ({
+    ...defaultState,
+    selected: state.selected
   }),
 
   [`${DEFAULT_PREFIX}::${WEBSOCKET_MESSAGE}`]: (state, action) => ({

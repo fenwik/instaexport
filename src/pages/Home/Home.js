@@ -4,6 +4,7 @@ import React, {
   useState
 } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import {
   Container,
   Row,
@@ -31,6 +32,7 @@ const Home = ({
   pendingCount,
   posts,
   selected,
+  selectedIds,
   onApply,
   onMount,
   onSelect
@@ -46,7 +48,7 @@ const Home = ({
 
   return (
     <div className={style.component}>
-      <Container>
+      <Container className={style.container}>
         <div className={style.toolbar}>
           <Hashtags
             items={hashtags}
@@ -57,59 +59,94 @@ const Home = ({
           <ThemeSwitcher />
         </div>
 
-        {(fetching || !posts.length) && (
-          <Spinner className={style.spinner} />
-        )}
+        <div className={style.row}>
+          <div className={cn(style.col, style.left)}>
+            <div className={style.scroller}>
+              {(fetching || !posts.length) && (
+                <Spinner className={style.spinner} />
+              )}
 
-        {!!pendingCount && (
-          <button
-            className={style.pending}
-            type="button"
-            onClick={onApply}
-          >
-            {pendingCount} new posts
-          </button>
-        )}
+              {!!pendingCount && (
+                <button
+                  className={style.pending}
+                  type="button"
+                  onClick={onApply}
+                >
+                  {pendingCount} new posts
+                </button>
+              )}
 
-        {!!posts && (
-          <Row>
-            {posts.map((post) => (
-              <Col
-                sm={6}
-                md={4}
-                lg={3}
-                key={post.shortcode}
-                className={style.col}
-              >
-                <Post
-                  id={post.shortcode}
-                  caption={post.caption}
-                  thumbnail={post.thumbnail}
-                  selected={selected.includes(post.shortcode)}
-                  onClick={onSelect}
-                />
-              </Col>
-            ))}
-          </Row>
-        )}
+              <Row>
+                {posts.map((post) => (
+                  <Col
+                    md={6}
+                    lg={6}
+                    key={post.shortcode}
+                    className={style.item}
+                  >
+                    <Post
+                      id={post.shortcode}
+                      caption={post.caption}
+                      thumbnail={post.thumbnail}
+                      selected={selectedIds.includes(post.shortcode)}
+                      onClick={onSelect}
+                    />
+                  </Col>
+                ))}
+              </Row>
 
-        {!!pendingCount && (
-          <AppearCursor onAppear={onApply} />
-        )}
+              {!!pendingCount && (
+                <AppearCursor onAppear={onApply} />
+              )}
+            </div>
+          </div>
+
+          <div className={cn(style.col, style.right)}>
+            <div className={style.scroller}>
+              {!selected.length && (
+                <div className={style.empty}>
+                  Selected photos will be displayed here
+                </div>
+              )}
+
+              <Row>
+                {selected.map((post) => (
+                  <Col
+                    md={6}
+                    lg={6}
+                    key={post.shortcode}
+                    className={style.item}
+                  >
+                    <Post
+                      id={post.shortcode}
+                      caption={post.caption}
+                      thumbnail={post.thumbnail}
+                      selected={selectedIds.includes(post.shortcode)}
+                      onClick={onSelect}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </div>
+        </div>
       </Container>
     </div>
   );
 };
 
+const PostPropType = PropTypes.shape({
+  shortcode: PropTypes.string,
+  caption: PropTypes.string,
+  thumbnail: PropTypes.string
+});
+
 Home.propTypes = {
   fetching: PropTypes.bool,
   pendingCount: PropTypes.number,
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    shortcode: PropTypes.string,
-    caption: PropTypes.string,
-    thumbnail: PropTypes.string
-  })),
-  selected: PropTypes.arrayOf(PropTypes.string),
+  posts: PropTypes.arrayOf(PostPropType),
+  selected: PropTypes.arrayOf(PostPropType),
+  selectedIds: PropTypes.arrayOf(PropTypes.string),
   onApply: PropTypes.func,
   onMount: PropTypes.func,
   onSelect: PropTypes.func
@@ -120,6 +157,7 @@ Home.defaultProps = {
   pendingCount: 0,
   posts: [],
   selected: [],
+  selectedIds: [],
   onApply: noop,
   onMount: noop,
   onSelect: noop

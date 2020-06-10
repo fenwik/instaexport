@@ -17,7 +17,7 @@
   cursor: pointer;
   width: 48px;
   height: 24px;
-  background: $grayL;
+  background: $darkColor;
   border-radius: 24px;
   position: relative;
   transition: background-color .2s;
@@ -34,10 +34,6 @@
   transition: 0.2s;
   background: $white;
   box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
-}
-
-.checkbox:checked + .label {
-  background-color: $layoutColor;
 }
 
 .checkbox:checked + .label .button {

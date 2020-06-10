@@ -7,7 +7,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './loadFonts';
 
 import SentryWrapper from '../components/SentryWrapper';
-import Layout from '../components/Layout';
 import Router from './Router';
 
 import '../style/index.scss';
@@ -21,9 +20,7 @@ const App = ({
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ConnectedRouter history={history}>
-          <Layout>
-            <Router />
-          </Layout>
+          <Router />
         </ConnectedRouter>
       </PersistGate>
     </Provider>

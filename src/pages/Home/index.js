@@ -5,6 +5,7 @@ import {
   pendingPostsCountSelector,
   postsFetchingSelector,
   postsSelector,
+  selectedPostsSelector,
   selectedPostsIdsSelector
 } from '../../redux/posts/selectors';
 import {
@@ -19,7 +20,8 @@ const mapStateToProps = createStructuredSelector({
   fetching: postsFetchingSelector,
   pendingCount: pendingPostsCountSelector,
   posts: postsSelector,
-  selected: selectedPostsIdsSelector
+  selected: selectedPostsSelector,
+  selectedIds: selectedPostsIdsSelector
 });
 
 const mapDispatchToProps = {

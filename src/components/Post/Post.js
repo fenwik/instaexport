@@ -13,6 +13,7 @@ const Post = ({
   caption,
   thumbnail,
   selected,
+  hideMark,
   onClick
 }) => (
   <button
@@ -25,7 +26,7 @@ const Post = ({
         <img src={thumbnail} alt={caption} />
       </div>
 
-      {selected && (
+      {selected && !hideMark && (
         <div className={style.icon}>
           <IconStar
             color="#1976D2"
@@ -48,6 +49,7 @@ Post.propTypes = {
   caption: PropTypes.string,
   thumbnail: PropTypes.string,
   selected: PropTypes.bool,
+  hideMark: PropTypes.bool,
   onClick: PropTypes.func
 };
 
@@ -57,6 +59,7 @@ Post.defaultProps = {
   caption: null,
   thumbnail: null,
   selected: false,
+  hideMark: false,
   onClick: noop
 };
 

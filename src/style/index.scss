@@ -7,6 +7,7 @@
   --font-color: #{$grayD};
   --bg-color: #{$grayXXL};
   --layout-color: #{$white};
+  --dark-color: #{$grayXL};
 }
 
 [data-theme="dark"] {
@@ -15,14 +16,20 @@
   --font-color: #{$grayXL};
   --bg-color: #{$grayXD};
   --layout-color: #{$grayD};
+  --dark-color: #{$grayD};
 }
 
 @-ms-viewport {
   width: device-width;
 }
 
-html {
-  -ms-overflow-style: scrollbar;
+html,
+body {
+  height: 100%;
+}
+
+body > div {
+  height: 100%;
 }
 
 body {
@@ -42,8 +49,4 @@ body {
 a {
   text-decoration: underline;
   color: inherit;
-}
-
-b {
-  font-weight: 800;
 }
