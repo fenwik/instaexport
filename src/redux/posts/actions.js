@@ -1,9 +1,10 @@
-import { connect } from '@giantmachines/redux-websocket/dist';
+import { connect, disconnect } from '@giantmachines/redux-websocket/dist';
 
 import {
   APPLY_PENDING_POSTS,
   SELECT_POST
 } from './constants';
+import { connectedSelector } from './selectors';
 import config from '../../config';
 
 const buildWsUrl = (endpoint) => {
@@ -20,7 +21,13 @@ export const applyPendingPosts = () => ({
   type: APPLY_PENDING_POSTS
 });
 
-export const subscribeHashtag = (hashtag) => connect(buildWsUrl(`${hashtag}/`));
+export const subscribeHashtag = (hashtag) => (dispatch, getState) => {
+  if (connectedSelector(getState())) {
+    dispatch(disconnect());
+  }
+
+  dispatch(connect(buildWsUrl(`${hashtag}/`)));
+};
 
 export const selectPost = (id) => ({
   type: SELECT_POST,

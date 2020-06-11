@@ -4,6 +4,7 @@
 .component {
   display: flex;
   height: 100%;
+  overflow: hidden;
 }
 
 .container {
@@ -24,14 +25,13 @@
 .row {
   position: relative;
   flex: 1 1 auto;
-  margin: 0 -20px;
 }
 
 .col {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 50%;
+  width: calc(50% - 15px);
 
   &.left {
     left: 0;
@@ -40,62 +40,4 @@
   &.right {
     right: 0;
   }
-}
-
-.scroller {
-  padding: 0 10px 0 20px;
-  height: 100%;
-  max-height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-
-  &::-webkit-scrollbar {
-    width: 10px;
-    background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: none;
-    background-color: $darkColor;
-    transition: background-color 0.2s;
-  }
-
-  &::-webkit-scrollbar-track {
-    cursor: pointer;
-    -webkit-box-shadow: none;
-    border-radius: 10px;
-  }
-}
-
-.empty {
-  padding: 3rem 0;
-  text-align: center;
-  margin: 0 auto;
-  max-width: 12em;
-  opacity: 0.5;
-}
-
-.pending {
-  @include resetButtonStyle;
-
-  position: fixed;
-  left: 25%;
-  bottom: 24px;
-  transform: translateX(-50%);
-  z-index: 1;
-  padding: 10px 20px;
-  border-radius: 40px;
-  background-color: $primaryColor;
-  color: $white;
-  box-shadow: 0 3px 5px -1px rgba($black,0.2), 0 6px 10px 0 rgba($black,0.14), 0 1px 18px 0 rgba($black,0.12);
-}
-
-.item {
-  margin-bottom: 20px;
-}
-
-.spinner {
-  padding-top: 40px;
-  text-align: center;
 }

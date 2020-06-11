@@ -2,22 +2,26 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
-  pendingPostsCountSelector
+  pendingPostsCountSelector,
+  postsFetchingSelector,
+  postsSelector
 } from '../../redux/posts/selectors';
 import {
   applyPendingPosts,
-  subscribeHashtag
+  selectPost
 } from '../../redux/posts/actions';
 
-import Home from './Home';
+import InfinitePostsList from './PostsInfiniteList';
 
 const mapStateToProps = createStructuredSelector({
+  fetching: postsFetchingSelector,
+  items: postsSelector,
   pendingCount: pendingPostsCountSelector
 });
 
 const mapDispatchToProps = {
-  onMount: subscribeHashtag,
-  onLoadMore: applyPendingPosts
+  onLoadMore: applyPendingPosts,
+  onSelect: selectPost
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(InfinitePostsList);

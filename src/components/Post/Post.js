@@ -23,7 +23,11 @@ const Post = ({
   >
     <figure>
       <div className={style.thumbnail}>
-        <img src={thumbnail} alt={caption} />
+        <img
+          alt={caption}
+          draggable="false"
+          src={thumbnail}
+        />
       </div>
 
       {selected && !hideMark && (
@@ -37,7 +41,9 @@ const Post = ({
       )}
 
       <figcaption className={style.caption}>
-        <p>{caption.slice(0, 100)}</p>
+        {!!caption && (
+          <p>{caption.slice(0, 100)}</p>
+        )}
       </figcaption>
     </figure>
   </button>

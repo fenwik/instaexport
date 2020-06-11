@@ -1,7 +1,7 @@
 import {
   DEFAULT_PREFIX,
-  WEBSOCKET_CLOSED,
   WEBSOCKET_CONNECT,
+  WEBSOCKET_DISCONNECT,
   WEBSOCKET_MESSAGE,
   WEBSOCKET_OPEN
 } from '@giantmachines/redux-websocket';
@@ -13,6 +13,8 @@ import {
 
 import { createReducer } from '../utils';
 
+const PAGE_SIZE = 9;
+
 const defaultState = {
   connected: false,
   fetching: false,
@@ -21,27 +23,32 @@ const defaultState = {
   selected: []
 };
 
+const setPostId = ({ shortcode, ...props }) => ({
+  id: shortcode,
+  ...props
+});
+
 const posts = createReducer(defaultState, {
   [APPLY_PENDING_POSTS]: (state) => ({
     ...state,
     data: [
       ...state.data,
-      ...state.pending.slice(0, 12)
+      ...state.pending.slice(0, PAGE_SIZE)
     ],
-    pending: state.pending.slice(12)
+    pending: state.pending.slice(PAGE_SIZE)
   }),
 
   [SELECT_POST]: (state, { id }) => {
     const selected = [...state.selected];
-    const index = selected.findIndex(({ shortcode }) => shortcode === id);
+    const index = selected.findIndex((item) => item.id === id);
 
     if (index !== -1) {
       selected.splice(index, 1);
     } else {
-      const item = state.data.find(({ shortcode }) => shortcode === id);
+      const active = state.data.find((item) => item.id === id);
 
-      if (item) {
-        selected.push(item);
+      if (active) {
+        selected.push(active);
       }
     }
 
@@ -50,6 +57,11 @@ const posts = createReducer(defaultState, {
       selected
     };
   },
+
+  [`${DEFAULT_PREFIX}::${WEBSOCKET_DISCONNECT}`]: (state) => ({
+    ...defaultState,
+    selected: state.selected
+  }),
 
   [`${DEFAULT_PREFIX}::${WEBSOCKET_CONNECT}`]: (state) => ({
     ...state,
@@ -62,18 +74,24 @@ const posts = createReducer(defaultState, {
     connected: true
   }),
 
-  [`${DEFAULT_PREFIX}::${WEBSOCKET_CLOSED}`]: (state) => ({
-    ...defaultState,
-    selected: state.selected
-  }),
+  [`${DEFAULT_PREFIX}::${WEBSOCKET_MESSAGE}`]: (state, action) => {
+    const items = JSON.parse(action.payload.message).posts.map(setPostId);
 
-  [`${DEFAULT_PREFIX}::${WEBSOCKET_MESSAGE}`]: (state, action) => ({
-    ...state,
-    pending: [
-      ...state.pending || [],
-      ...JSON.parse(action.payload.message).posts
-    ]
-  })
+    if (!state.data.length) {
+      return {
+        ...state,
+        data: items
+      };
+    }
+
+    return {
+      ...state,
+      pending: [
+        ...state.pending || [],
+        ...items
+      ]
+    };
+  }
 });
 
 export default posts;
