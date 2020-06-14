@@ -50,12 +50,25 @@ const PostsSelectedList = ({
 
   const isItemLoaded = useCallback(() => true, []);
 
+  const calcRowHeight = useCallback((width) => {
+    if (screenClass === 'xs') {
+      return width / colCount + 48;
+    }
+
+    return width / colCount + 64;
+  }, [
+    colCount,
+    screenClass
+  ]);
+
   const renderLine = useCallback(({
     data,
     index,
     ...props
   }) => {
     const row = data[index];
+
+    // TODO: set placeholder onScroll
 
     return (
       <div
@@ -109,7 +122,7 @@ const PostsSelectedList = ({
                 height={height}
                 itemCount={rowCount}
                 itemData={rows}
-                itemSize={width / colCount + 64}
+                itemSize={calcRowHeight(width)}
                 width={width}
                 onItemsRendered={onItemsRendered}
               >

@@ -1,10 +1,14 @@
 @import '../../style/variables';
 @import '../../style/mixins';
 
+.component {
+  margin: 0 -4px -8px;
+}
+
 .hashtag {
   @include resetButtonStyle;
 
-  margin: 4px;
+  margin: 0 4px 8px;
   padding: 4px 12px 6px;
   background-color: $layoutColor;
   border-radius: 20px;

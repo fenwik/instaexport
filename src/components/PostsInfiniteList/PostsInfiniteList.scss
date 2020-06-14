@@ -4,6 +4,7 @@
 .component {
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .spinner {
@@ -15,9 +16,12 @@
   overflow-y: scroll !important;
 
   &::-webkit-scrollbar {
-    right: -10px;
     width: 10px;
     background-color: transparent;
+
+    @include mediaSmMax {
+      display: none;
+    }
   }
 
   &::-webkit-scrollbar-thumb {
@@ -42,7 +46,15 @@
 .item {
   flex: 0 0 100%;
   width: 100%;
-  padding-right: 20px;
+
+  @include mediaSmMin {
+    padding-right: 20px;
+  }
+
+  @include mediaXs {
+    padding-right: 10px;
+    padding-left: 24px;
+  }
 
   @include mediaLgMin {
     flex: 0 0 50%;
@@ -53,14 +65,24 @@
 .pending {
   @include resetButtonStyle;
 
-  position: fixed;
-  left: 25%;
+  position: absolute;
+  left: calc(50% - 10px);
+  margin-left: -74px;
   bottom: 24px;
-  transform: translateX(-50%);
+  transform: translateY(200px);
   z-index: 1;
   padding: 10px 20px;
   border-radius: 40px;
   background-color: $primaryColor;
   color: $white;
   box-shadow: 0 3px 5px -1px rgba($black,0.2), 0 6px 10px 0 rgba($black,0.14), 0 1px 18px 0 rgba($black,0.12);
+  transition: transform .2s ease;
+
+  &.active {
+    transform: translateY(0);
+  }
+
+  @include mediaXs {
+    left: calc(50% + 7px);
+  }
 }

@@ -49,13 +49,27 @@ const Home = ({
           <ThemeSwitcher />
         </div>
 
-        <div className={style.row}>
-          <div className={cn(style.col, style.left)}>
-            <InfinitePostsList />
-          </div>
+        <div className={style.content}>
+          <div className={style.row}>
+            <div className={cn(style.col, style.left)}>
+              <div className={style.title}>
+                Source posts
+              </div>
 
-          <div className={cn(style.col, style.right)}>
-            <PostsSelectedList />
+              <div className={style.list}>
+                <InfinitePostsList />
+              </div>
+            </div>
+
+            <div className={cn(style.col, style.right)}>
+              <div className={style.title}>
+                Export posts
+              </div>
+
+              <div className={style.list}>
+                <PostsSelectedList />
+              </div>
+            </div>
           </div>
         </div>
       </Container>

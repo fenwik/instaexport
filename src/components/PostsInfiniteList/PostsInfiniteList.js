@@ -9,6 +9,7 @@ import { useScreenClass } from 'react-grid-system';
 import InfiniteLoader from 'react-window-infinite-loader';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import cn from 'classnames';
 
 import { noop } from '../../utils';
 import Post from '../Post';
@@ -87,6 +88,17 @@ const PostsInfiniteList = ({
     listRef.current.scrollToItem(items.length, 'start');
   }, [items]);
 
+  const calcRowHeight = useCallback((width) => {
+    if (screenClass === 'xs') {
+      return width / colCount + 48;
+    }
+
+    return width / colCount + 64;
+  }, [
+    colCount,
+    screenClass
+  ]);
+
   const renderLine = useCallback(({
     data,
     index,
@@ -140,7 +152,7 @@ const PostsInfiniteList = ({
                 height={height}
                 itemCount={rowCount}
                 itemData={rows}
-                itemSize={width / colCount + 64}
+                itemSize={calcRowHeight(width)}
                 width={width}
                 onItemsRendered={onItemsRendered}
               >
@@ -151,15 +163,13 @@ const PostsInfiniteList = ({
         )}
       </AutoSizer>
 
-      {!!pendingCount && (
-        <button
-          className={style.pending}
-          type="button"
-          onClick={scrollTo}
-        >
-          {pendingCount} new posts
-        </button>
-      )}
+      <button
+        className={cn(style.pending, { [style.active]: !!pendingCount })}
+        type="button"
+        onClick={scrollTo}
+      >
+        {pendingCount} new posts
+      </button>
     </div>
   );
 };

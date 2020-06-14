@@ -33,7 +33,7 @@ const Post = ({
       {selected && !hideMark && (
         <div className={style.icon}>
           <IconStar
-            color="#1976D2"
+            color="#FFEB3B"
             height={32}
             width={32}
           />
