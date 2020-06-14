@@ -1,0 +1,23 @@
+{
+  "name": "instaexport-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/node": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "body-parser": "^1.19.0",
+    "fastify": "3.0.0-rc.3",
+    "fastify-websocket": "^2.0.1",
+    "path": "^0.12.7",
+    "scraper-instagram": "^1.0.11"
+  }
+}
